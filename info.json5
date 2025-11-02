@@ -1,14 +1,14 @@
 {
-  id: "tr1ngledev.4dmod-example",
-  name: "4DMod Example",
+  id: "tr1ngledev.new-year-mod",
+  name: "New Year Mod",
   author: "Tr1NgleDev",
-  description: "An example mod",
-  version: "1.0",
+  description: "The New Year (2025) Mod for 4D Miner :D",
+  version: "2025.2",
   gameVersion: "0.2.1.4",
   modDLL: "4DMod.dll",
   externalDLLs: [
   ],
   dependencies: {
-    // "tr1ngledev.4dkeybinds": "? before > 1.0" // "?" is an optional dependency, "before" makes the dependency load before this mod, "> 1.0" dependency with version bigger than 1.0
+    "!tr1ngledev.fxlib": "before"
   },
 }
