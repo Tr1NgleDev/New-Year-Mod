@@ -13,6 +13,6 @@ uniform vec3 sunlightColor;
 
 void main()
 {
-	vec4 col = texture(image, vec3(fsColor.xy, fsColor.z * float(imageZSize)));
+	vec4 col = texture(image, vec3(fsColor.x, 1.0 - fsColor.y, fsColor.z * float(imageZSize)));
 	color = vec4(col.rgb * (fsLighting / 4 + 0.75) * sunlightColor, col.a);
 }

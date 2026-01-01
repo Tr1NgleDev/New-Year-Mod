@@ -1,26 +1,13 @@
-#version 430 core
+#version 330 core
 
 layout(lines_adjacency) in;
 layout(triangle_strip, max_vertices = 4) out;
 
-in int instanceID[];
-out flat int fsInstanceID;
+in vec4 gsVertPos[];
+out vec4 fsVertPos;
 
-// model view matrix
-//uniform float MV[25];
-
-struct InstanceData
-{
-	float[25] model;
-	float[4] scale;
-	float[4] color;
-	float t;
-};
-layout(std430, binding = 0) readonly buffer instanceData
-{
-    InstanceData data[];
-};
-uniform float[25] view;
+in vec4 gsNormal[];
+out vec4 fsNormal;
 
 // projection matrix is handled here after the coordinates are converted to 3D
 uniform mat4 P;
@@ -30,12 +17,6 @@ const ivec2 edges[6] = ivec2[6](ivec2(0, 1), ivec2(0, 2), ivec2(0, 3), ivec2(1, 
 
 void main()
 {
-	int instID = instanceID[0];
-
-	if (data[instID].t >= 1.0) return;
-
-	fsInstanceID = instID;
-	
 	// calculate intersection between simplex and hyperplane (3D view)
 
 	// number of intersection points
@@ -48,29 +29,29 @@ void main()
 		}
 
 		ivec2 e = edges[i];
-		vec4 p0 = gl_in[e[0]].gl_Position;
-		vec4 p1 = gl_in[e[1]].gl_Position;
+		vec4 p0 = gl_in[e.x].gl_Position;
+		vec4 p1 = gl_in[e.y].gl_Position;
 
 		// vertices are on the same side of the hyperplane so the edge doesn't intersect
-		if ((p0[3] < 0.00000001 && p1[3] < 0.00000001) || (p0[3] > -0.00000001 && p1[3] > -0.00000001))
+		if ((p0[3] < 0.0000001 && p1[3] < 0.0000001) || (p0[3] > -0.0000001 && p1[3] > -0.0000001))
 		{
 			continue;
 		}
 
 		// intersection
-		float a = 0.0;
-		if (abs(p1[3] - p0[3]) > 0.00000001)
+		float a = 0;
+		if (abs(p1[3] - p0[3]) > 0.0000001)
 		{
 			a = (-p0[3]) / (p1[3] - p0[3]);
 		}
-		vec4 pt = mix(p0, p1, a);
+		gl_Position = P * vec4(mix(p0.xyz, p1.xyz, a), 1.0);
 
-		gl_Position = P * vec4(pt.xyz, 1.0);
+		fsVertPos = mix(gsVertPos[e.x], gsVertPos[e.y], a);
+		fsNormal = mix(gsNormal[e.x], gsNormal[e.y], a);
 
 		EmitVertex();
 
 		++k;
 	}
-
 	EndPrimitive();
 }

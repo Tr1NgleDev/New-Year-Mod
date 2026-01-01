@@ -45,6 +45,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>./fxlib-dev/include;./4dm.h;./4dm.h/networking/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -55,14 +56,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="EntityFirework.cpp" />
+    <ClCompile Include="EntityConfettiParticles.cpp" />
+    <ClCompile Include="ItemConfetti.cpp" />
     <ClCompile Include="ItemFirework.cpp" />
+    <ClCompile Include="ItemSparkler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TickingItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="info.json5" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="EntityFirework.h" />
+    <ClInclude Include="EntityConfettiParticles.h" />
+    <ClInclude Include="hexadecachoron.h" />
+    <ClInclude Include="ItemConfetti.h" />
     <ClInclude Include="ItemFirework.h" />
+    <ClInclude Include="ItemSparkler.h" />
+    <ClInclude Include="TickingItem.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

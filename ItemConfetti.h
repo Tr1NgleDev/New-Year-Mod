@@ -1,18 +1,25 @@
 #pragma once
 
 #include <4dm.h>
+#include <fxlib/FXLib.h>
 
-class ItemFirework : public fdm::Item
+class ItemConfetti : public fdm::Item
 {
-private:
-	double lastTimeUsed = 0;
-
 public:
+	bool used = false;
+
+	static const fdm::Tex2D* itemTexture;
 	static const fdm::Tex2D* texture;
+	static fdm::MeshRenderer renderer;
+	static const fdm::Shader* shader;
+	static fdm::stl::string confettiSound;
+	inline static const char* voiceGroup = "ambience";
 
 	static void renderInit();
+	static void soundInit();
+	static void playConfettiSound(const glm::vec4& position);
 
-	bool action(fdm::World * world, fdm::Player* player, int action) override;
+	bool action(fdm::World* world, fdm::Player* player, int action) override;
 	bool isCompatible(const std::unique_ptr<fdm::Item>& other) override;
 	fdm::stl::string getName() override;
 	bool isDeadly() override;
