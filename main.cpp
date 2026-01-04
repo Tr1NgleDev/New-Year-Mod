@@ -112,13 +112,8 @@ $hook(void, StateGame, init, StateManager& s)
 		});
 
 	loadingTiles = true;
-	int w, h, c;
-	uint8_t* tex = SOIL_load_image("assets/textures/tiles.png", &w, &h, &c, 4);
-	if (tex)
-	{
-		ResourceManager::textures["tiles.png"]->loadArrayTexture(tex, w, h, 4, 96, 16);
-		SOIL_free_image_data(tex);
-	}
+	ResourceManager::textures.erase("tiles.png");
+	ResourceManager::loadArrayTexture("tiles.png", 96, 16);
 	loadingTiles = false;
 
 	original(self, s);
