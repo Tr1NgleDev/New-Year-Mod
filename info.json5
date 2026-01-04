@@ -3,7 +3,7 @@
   name: "New Year Mod",
   author: "Tr1NgleDev",
   description: "The New Year (2026) Mod for 4D Miner :D",
-  version: "2026",
+  version: "2026.1",
   gameVersion: "0.2.1.4",
   modDLL: "4DMod.dll",
   externalDLLs: [
